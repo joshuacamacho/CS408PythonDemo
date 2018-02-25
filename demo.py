@@ -10,15 +10,13 @@ def f2(x):
     return x+10-x*math.cosh(50/x)
 def f2D(x):
     return (1+math.sinh(50/x)*(50/x)-math.cosh(50/x))
-def approxError(current, previous):
-    if current != 0:
-        return abs((current-previous)/current)
-    else:
-        return 100000000000
+def approxError(c,p):
+    return abs((c-p)/c) if c!=0 else 100000000000
 
 def bisection(f, a, b, maxIterations, epsilon):
     if f(a)*f(b) > 0:
         print('Values of a and b do not bracket the root')
+        return
     approxerror = 0
     c = 0
     results = {}
