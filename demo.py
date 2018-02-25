@@ -17,38 +17,31 @@ def bisection(f, a, b, maxIterations, epsilon):
     if f(a)*f(b) > 0:
         print('Values of a and b do not bracket the root')
         return
-    approxerror = 0
     c = 0
-    results = {}
+    errors = {}
     for n in range(0,maxIterations):
-        prevError = approxerror
         prevC = c
-        c = (a+b) / 2
-        approxerror = approxError(c,prevC)
-        results[n] = approxerror
-        if approxerror < epsilon or f(c) == 0:
-            return zip(*sorted(results.items()))
+        c = (a+b) / 2    
+        errors[n] = approxError(c,prevC)
+        if errors[n] < epsilon or f(c) == 0:
+            return zip(*sorted(errors.items()))
         if f(a)*f(c) < 0:
             b = c
         else:
             a = c
 
 def newton(f, fp, x, maxIterations, epsilon, delta):
-    approxerror = 0
-    results = {}
+    errors = {}
     for n in range(0,maxIterations):
-        prevError = approxerror
         if abs(fp(x)) < delta or abs(fp(x)) == 0:
             print("Derivative approaching zero- cannot find root")
             return
-        prevX = x
-        d = f(x) / fp(x)
-        x-=d
-        approxerror = approxError(x,prevX)
-        results[n] = approxerror
-        if approxerror < epsilon or f(x) == 0:
-            print(results)
-            return zip(*sorted(results.items()))
+        prevX = x 
+        x-= f(x) / fp(x)
+        errors[n] = approxError(x,prevX)
+        if errors[n] < epsilon or f(x) == 0:
+            print(errors)
+            return zip(*sorted(errors.items()))
 
 def graphResults():
     pass
