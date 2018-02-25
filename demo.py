@@ -21,7 +21,6 @@ def bisection(f, a, b, maxIterations, epsilon):
     c = 0
     results = {}
     for n in range(0,maxIterations):
-        prevError = approxerror
         prevC = c
         c = (a+b) / 2
         approxerror = approxError(c,prevC)
@@ -37,13 +36,11 @@ def newton(f, fp, x, maxIterations, epsilon, delta):
     approxerror = 0
     results = {}
     for n in range(0,maxIterations):
-        prevError = approxerror
         if abs(fp(x)) < delta or abs(fp(x)) == 0:
             print("Derivative approaching zero- cannot find root")
             return
-        prevX = x
-        d = f(x) / fp(x)
-        x-=d
+        prevX = x 
+        x-= f(x) / fp(x)
         approxerror = approxError(x,prevX)
         results[n] = approxerror
         if approxerror < epsilon or f(x) == 0:
